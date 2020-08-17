@@ -1,0 +1,46 @@
+{% extends 'home/base.html' %}
+
+ <!-- {% block login %}
+          <div align="right" style="display: inline-block;">
+                <a href="{% url 'secretary:login' %}" class="login"><button class="button"> <span class="strong">Login</span></button> </a>
+            </div>
+{% endblock %} -->
+    {% block body %}
+ <br/>
+        {% if user.is_authenticated %}
+            <div align="center">
+            <h3>
+            Welcome {{ user.first_name }} {{ user.last_name }}
+            </h3>
+        </div>
+        {% endif %}
+<div class="list">
+    <a href="{% url 'ssg:comment' %}" class="alist">
+        <div class="slist">
+        <span>unmoved File</span>
+    </div>
+    </a>
+
+    <a href="#" class="alist">
+        <div class="slist">
+
+        <span>History</span>
+    </div>
+    </a>
+
+    <a href="#" class="alist">
+    <div class="slist">
+    <span>Logout</span>
+    </div>
+    </a>
+</div><br>
+<div class="list">
+    <span>File History</span>
+</div><br>
+<ul>
+    {% for file in all_files %}
+    <li><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></li>
+    {% endfor %}
+</ul>
+    {% endblock %}
+

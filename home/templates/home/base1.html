@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="e_office_management, address, phone, icons" />
+    <title>{% block title %} eplus {% endblock %}</title>
+    	<link rel="stylesheet" href="{% static 'http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' %}">
+    <link href="{% static 'http://fonts.googleapis.com/css?family=Cookie' %}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/styles.css' %}"/>
+
+
+</head>
+<body>
+
+<header>
+<nav>
+        <a style="color:black; position: relative; top:0;" href="{% url 'home:index' %}"><img src="{% static 'home/images/travello.jpg' %}" /></a>
+
+        {% if user.is_authenticated %}
+            <div align="right" style="display: inline;">
+                <a style="color:blue; display: inline; position: absolute; top:20px; right: 10px;" href="{% url 'home:logout' %}"><button style="background-color:red; border-radius:100px; color:white;"><strong>Logout</strong> </button> </a>
+            </div>
+        {% endif %}
+        {% if not user.is_authenticated %}
+            {% block login %}{% endblock %}
+        {% endif %}
+
+
+
+</nav>
+</header>
+<main>
+<div class="container">
+  <img src="{% static 'home/images/banner.jpg' %}" alt="Snow" style="width:100%;">
+    <div class="centered"><h1>Welcome to Eplus Solution</h1></div></div><br>
+{% block body %}
+{% endblock %}
+</main>
+<footer></footer>
+</body>
+</html>

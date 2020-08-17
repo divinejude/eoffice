@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+{% block body %}<div id="login"></div>
+<br/>
+<!--<div class="form">
+    <form>
+        <fieldset>
+            <legend><span class="legend">Login Form</span></legend>
+        <input type="text" placeholder="Username"><br><br>
+        <input type="password" placeholder="Password" name="password"><br>
+        <input type="submit" name="Login" value="Login">
+        </fieldset>
+    </form>
+</div>
+-->
+<div style="padding:2%; margin:5%;" >
+<div class="form" style="border-radius:10px;" >
+    <div align="center">
+        {% for message in messages %}
+            <div style="color:red;">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% if not user.is_authenticated %}
+        <form action="" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend><span class="legend">Login Form</span></legend>
+                {% csrf_token %}
+                {% include 'home/form-template.html' %}
+                <input type="submit" name="Login" value="Login" style="border-radius:2px; border:0; background: green; color:white">
+            </fieldset>
+</form>
+        {% endif %}
+    </div>
+</div></div>
+{% endblock %}

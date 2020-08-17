@@ -1,0 +1,242 @@
+{% extends 'home/base.html' %}
+
+    {% block body %}
+ <br/>
+        {% if user.is_authenticated %}
+<div id="file-history"></div>
+            <div align="center">
+            <h3>
+            Welcome {{ user.first_name }} {{ user.last_name }}
+            </h3>
+            </div>
+
+
+<!-- Secretary's moved File -->
+                {% if user.profile.secretary %}
+
+                <div class="list">
+                    <span>File History</span>
+                </div><br>
+                <div class="list" style="background:white; color:black;">
+
+                    {% if all_files %}
+                    <table>
+                        <tr>
+                        <th>File_Name</th>
+                        <th>File Date</th>
+                        <th>File Number</th>
+                        </tr>
+                        {% for file in all_files %}
+                        <tr>
+                            <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                            <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                            <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    <p>No file available</p>
+                    {% endif %}
+                </div><br>
+
+                <div class="list">
+
+                    <a href="{% url 'secretary:upload' %}" class="alist">
+                        <div class="slist">
+                        <span>Register File</span>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'secretary:s_dashboard' %}#dashboard" class="alist">
+                        <div class="slist">
+                        <span>Dashboard</span>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'home:logout' %}#index-menu" class="alist">
+                        <div class="slist">
+                        <span>Logout</span>
+                        </div>
+                    </a>
+                </div>
+                {% else %}
+                <!-- Unmoved File -->
+                <div class="list">
+                    <span>Unmoved File History</span>
+                </div><br>
+                <div class="list" style="background:white; color:black;">
+
+                    {% if all_files %}
+                    <table>
+                        <tr>
+                        <th>File_Name</th>
+                        <th>File Date</th>
+                        <th>File Number</th>
+                        </tr>
+                        {% for file in all_files %}
+                        {% if user.profile.ssg %}
+                            {% if file.moved_to_ssg and not file.moved_from_ssg %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.perm_sec_cas %}
+                            {% if file.moved_to_perm_sec_cas and not file.moved_from_perm_sec_cas %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.perm_sec_political %}
+                            {% if file.moved_to_perm_sec_political and not file.moved_from_perm_sec_political %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.perm_sec_general_admin %}
+                            {% if file.moved_to_perm_sec_general_admin and not file.moved_from_perm_sec_general_admin %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.director_internal_affairs %}
+                            {% if file.moved_to_director_internal_affairs and not file.moved_from_director_internal_affairs %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.director_security %}
+                            {% if file.moved_to_director_security and not file.moved_from_director_security %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.director_cabinet_affairs %}
+                            {% if file.moved_to_director_cabinet_affairs and not file.moved_from_director_cabinet_affairs %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% else %}
+                        you are not a verified user
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+                    {% else %}
+                    <p>No file available</p>
+                    {% endif %}
+                </div><br>
+                <!-- moved files -->
+                <div class="list">
+                    <span>Moved File History</span>
+                </div><br>
+                <div class="list" style="background:white; color:black;">
+
+                    {% if all_files %}
+                    <table>
+                        <tr>
+                        <th>File_Name</th>
+                        <th>File Date</th>
+                        <th>File Number</th>
+                        </tr>
+                        {% for file in all_files %}
+                        {% if user.profile.ssg %}
+                            {% if file.moved_to_ssg and file.moved_from_ssg %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.perm_sec_cas %}
+                            {% if file.moved_to_perm_sec_cas and file.moved_from_perm_sec_cas %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.perm_sec_political %}
+                            {% if file.moved_to_perm_sec_political and file.moved_from_perm_sec_political %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.perm_sec_general_admin %}
+                            {% if file.moved_to_perm_sec_general_admin and file.moved_from_perm_sec_general_admin %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.director_internal_affairs %}
+                            {% if file.moved_to_director_internal_affairs and file.moved_from_director_internal_affairs %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.director_security %}
+                            {% if file.moved_to_director_security and file.moved_from_director_security %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% elif user.profile.director_cabinet_affairs %}
+                            {% if file.moved_to_director_cabinet_affairs and file.moved_from_director_cabinet_affairs %}
+                            <tr>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.date_of_file}}</a></td>
+                                <td><a href="{% url 'secretary:detail' file.id %}">{{file.file_number}}</a></td>
+                            </tr>
+                            {% endif %}
+                        {% else %}
+                        you are not a verified user
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+                    {% else %}
+                    <p>No file available</p>
+                    {% endif %}
+                </div><br>
+                <div class="list">
+
+                        <a href="{% url 'secretary:s_dashboard' %}#dashboard" class="alist">
+                            <div class="slist">
+                            <span>Dashboard</span>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'home:logout' %}#index-menu" class="alist">
+                            <div class="slist">
+                            <span>Logout</span>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+{% endif %}
+
+
+    {% endblock %}
+

@@ -1,0 +1,90 @@
+
+}
+.login{
+	color:white;
+	display: inline;
+	position: absolute;
+	top:70px; right: 80px;
+}
+.button{
+	width: 100px;
+	height: 35px;
+	background: green;
+	color: white;
+	border: 0px;
+}
+.strong{
+	font-family: sans-serif;
+	font-size: 20px;
+}
+.legend{
+	font-family: sans-serif;
+}
+.form{
+	width: 300px;
+    padding: 10px;
+    background: #f99f53;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #f97200;
+    color: #fff;
+}
+.containar {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+/* Bottom left text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.list{
+	width: 80%;
+	height: auto;
+    padding: 10px;
+    background: silver;
+    text-align: center;
+    margin: 0 auto;
+    color: #fff;
+	display: block;
+	justify-content: center;
+	border-radius: 10px;
+}
+.slist{
+	width: 20%;
+    padding: 20px 0 20px 0;
+    background: white;
+    text-align: center;
+    margin: auto;
+    color: black;
+    display: inline-block;
+    border-radius: 10px;
+
+}
+.alist{
+	text-decoration: none;
+	font-family: new century schoolbook;
+	font-style: italic;
+	font-weight: 1000;
+
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 30px;
+  justify-content: center;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

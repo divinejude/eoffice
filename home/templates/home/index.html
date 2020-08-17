@@ -1,0 +1,35 @@
+{% extends 'home/base.html' %}
+    {% block body %}<div id="index-menu"></div>
+ <br/>
+{% if user.is_authenticated %}
+    <div align="center">
+            <h3>
+            Welcome {{ user.first_name }} {{ user.last_name }}
+            </h3>
+        </div>
+{% endif %}
+
+<div style="padding:2%; margin:5%;" >
+<div class="list">
+    {% if not user.is_authenticated %}
+    <a href="{% url 'secretary:login' %}#login" class="alist">
+        <div class="slist">
+        <span>Login</span>
+        </div>
+    </a>
+    {% else %}
+    <a href="{% url 'home:logout' %}#index-menu" class="alist">
+
+        <div class="slist">
+        <span>Logout</span>
+        </div>
+    </a>
+    <a href="{% url 'secretary:s_dashboard' %}#dashboard" class="alist">
+            <div class="slist">
+            <span>Dashboard</span>
+            </div>
+        </a>
+    {% endif %}
+</div></div> <br><br><br>
+    {% endblock %}
+

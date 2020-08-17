@@ -1,0 +1,211 @@
+{% extends 'home/base.html' %}
+    {% block body %}
+        <br/>
+        {% if user.is_authenticated %}
+
+                    <table>
+                        <tr>
+                        <th colspan="2" style="text-align:center;">File Details</th>
+                        </tr>
+
+                        <tr>
+                            <td>File Name </td>
+                            <td>{{ file.file_name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>File Number</td>
+                            <td>{{ file.file_number }}</td>
+                        </tr>
+                        <tr>
+                            <td>File Date</td>
+                            <td>{{file.date_of_file}}</td>
+                        </tr>
+                        <tr>
+                            <td>Current location of file:</td>
+                            <td>
+                                {% if file.moved_to_ssg and not file.moved_from_ssg %}
+                                SSG's Office
+                                {% elif  file.moved_to_perm_sec_cas and not file.moved_from_perm_sec_cas %}
+                                Permanent Secretary (CAS) Office
+                                {% elif  file.moved_to_perm_sec_political and not file.moved_from_perm_sec_political  %}
+                                Permanent Secretary (Political) Office
+                                {% elif  file.moved_to_perm_sec_general_admin and not file.moved_from_perm_sec_general_admin %}
+                                Permanent Secretary (General Admin) Office
+                                {% elif  file.moved_to_director_internal_affairs and not file.moved_from_director_internal_affairs %}
+                                Director of Internal Affairs' Office
+                                {% elif  file.moved_to_director_security and not file.moved_from_director_security %}
+                                Director of Security's Office
+                                {% elif  file.moved_to_director_cabinet_affairs and not file.moved_from_director_cabinet_affairs %}
+                                Director of Cabinet Affairs' Office
+                                {% else %}
+                                Secretary's Office
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+<br>
+<div style="margin:20px; padding:10px;">
+<pre><b>Secretary's Comment:</b><br>{{ file.comment_from_secretary }}</pre>
+{% if file.comment_from_ssg is not None %}
+    <pre><b>SSG's Comment:</b><br>{{file.comment_from_ssg}}</pre>
+{% endif %}
+{% if file.comment_from_perm_sec_cas is not None %}
+    <pre><b>Perm. Sec (CAS) Comment:</b><br>{{file.comment_from_perm_sec_cas}}</pre>
+{% endif %}
+{% if file.comment_from_perm_sec_political is not None %}
+    <pre><b>Perm. Sec (Political) Comment:</b><br>{{file.comment_from_perm_sec_political}}</pre>
+{% endif %}
+{% if file.comment_from_perm_sec_general_admin is not None %}
+    <pre><b>Perm. Sec (General Admin) Comment:</b><br>{{file.comment_from_perm_sec_general_admin}}</pre>
+{% endif %}
+{% if file.comment_from_director_internal_affairs is not None %}
+    <pre><b>Director of  Internal Affairs Comment:</b><br>{{file.comment_from_director_internal_affairs}}</pre>
+{% endif %}
+{% if file.comment_from_director_security is not None %}
+    <pre><b>Director of  Security Comment:</b><br>{{file.comment_from_director_security}}</pre>
+{% endif %}
+{% if file.comment_from_director_cabinet_affairs is not None %}
+    <pre><b>Director of  Cabinet Affairs Comment:</b><br>{{file.comment_from_director_cabinet_affairs}}</pre>
+{% endif %}
+
+
+
+
+
+
+    <a href="{{ file.file.url }}" target="_blank">
+        <button style="border-radius:5px;">view file</button>
+    </a>
+                    <!--<img src="{{ file.file.url }}" style="width:50%;"> --><br><br>
+</div>
+<!-- comment box for ssg -->
+    {% if user.profile.ssg %}
+        {% if file.moved_to_ssg and not file.moved_from_ssg %}
+<div style="margin:20px; padding:10px;">
+        <form method="post" action="{% url 'secretary:comment' file.id user.id %}" enctype="multipart/form-data" id="commentform">
+            {% csrf_token %}
+            <textarea name="comment" form="commentform" placeholder="Enter comment" style="height:200px; width:200px" required></textarea><br><br>
+            <input name="position" placeholder="select destination" list="position" required>
+                <datalist id="position">
+                    <option value="perm sec cas"></option>
+                    <option value="perm sec political"></option>
+                    <option value="perm sec general admin"></option>
+                </datalist><br>
+            <input type="submit" value="Move File">
+        </form>
+</div>
+        {% endif %}
+    {% endif %}
+<!-- comment box for perm sec1 -->
+    {% if user.profile.perm_sec_cas %}
+        {% if file.moved_to_perm_sec_cas and not file.moved_from_perm_sec_cas %}
+<div style="margin:20px; padding:10px;">
+            <form method="post" action="{% url 'secretary:comment' file.id user.id %}" enctype="multipart/form-data" id="commentform1">
+            {% csrf_token %}
+            <textarea name="comment" form="commentform1" placeholder="Enter comment" style="height:200px; width:200px" required></textarea><br>
+             <input name="position" placeholder="select destination" list="position_cas" required>
+                <datalist id="position_cas">
+                    <option value="director internal affairs"></option>
+                    <option value="director security"></option>
+                    <option value="director cabinet affairs"></option>
+                    <option value="ssg"></option>
+                </datalist><br>
+                <br>
+            <input type="submit" value="Move File">
+            </form>
+</div>
+        {% endif %}
+    {% endif %}
+    <!-- comment box for director cabinet affairs -->
+    {% if user.profile.director_cabinet_affairs and file.moved_to_director_cabinet_affairs and not file.moved_from_director_cabinet_affairs %}
+    <div style="margin:20px; padding:10px;">
+            <form method="post" action="{% url 'secretary:comment' file.id user.id %}" enctype="multipart/form-data" id="cabinet">
+            {% csrf_token %}
+            <textarea name="comment" form="cabinet" placeholder="Enter comment" style="height:200px; width:200px" required></textarea><br>
+             <br>
+                <br>
+            <input type="submit" value="Move File">
+            </form>
+</div>
+    {% endif %}
+    <!-- comment box for director security -->
+    {% if user.profile.director_security and file.moved_to_director_security and not file.moved_from_director_security %}
+    <div style="margin:20px; padding:10px;">
+            <form method="post" action="{% url 'secretary:comment' file.id user.id %}" enctype="multipart/form-data" id="security">
+            {% csrf_token %}
+            <textarea name="comment" form="security" placeholder="Enter comment" style="height:200px; width:200px" required></textarea><br>
+             <br>
+                <br>
+            <input type="submit" value="Move File">
+            </form>
+</div>
+    {% endif %}
+    <!-- comment box for director internal affairs -->
+    {% if user.profile.director_internal_affairs and file.moved_to_director_internal_affairs and not file.moved_from_director_internal_affairs %}
+    <div style="margin:20px; padding:10px;">
+            <form method="post" action="{% url 'secretary:comment' file.id user.id %}" enctype="multipart/form-data" id="internal_affairs">
+            {% csrf_token %}
+            <textarea name="comment" form="internal_affairs" placeholder="Enter comment" style="height:200px; width:200px" required></textarea><br>
+             <br>
+                <br>
+            <input type="submit" value="Move File">
+            </form>
+    </div>
+    {% endif %}
+<!-- comment box for perm sec2
+
+    {% if user.profile.perm_sec_political %}
+        {% if file.comment_from_perm_sec2 is None and file.moved_to_perm_sec_political %}
+<div style="margin:20px; padding:10px;">
+            <form method="post" action="{% url 'secretary:comment' file.id user.id %}" enctype="multipart/form-data" id="commentform2">
+            {% csrf_token %}
+            <textarea name="comment" form="commentform2" placeholder="Enter comment" style="height:200px; width:200px" required></textarea><br><br>
+            <input type="submit" value="Move File">
+        </form>
+</div>
+        {% endif %}
+    {% endif %}-->
+    {% if not user.profile.secretary %}
+    <div class="list">
+
+                        <a href="{% url 'secretary:s_dashboard' %}#dashboard" class="alist">
+                            <div class="slist">
+                            <span>Dashboard</span>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'home:logout' %}#index-menu" class="alist">
+                            <div class="slist">
+                            <span>Logout</span>
+                            </div>
+                        </a>
+                    </div>
+    {% endif %}
+    {% if user.profile.secretary %}
+        <div class="list">
+
+                        <a href="{% url 'secretary:upload' %}" class="alist">
+                            <div class="slist">
+                            <span>Register File</span>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'secretary:s_dashboard' %}#dashboard" class="alist">
+                            <div class="slist">
+                            <span>Dashboard</span>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'home:logout' %}#index-menu" class="alist">
+                            <div class="slist">
+                            <span>Logout</span>
+                            </div>
+                        </a>
+                    </div>
+    {% endif %}
+<!--{% if not file.moved_to_perm_sec1 %}
+{% endif %}-->
+{% endif %}
+    {% endblock %}
+

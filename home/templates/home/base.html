@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<title>{% block title %} e-office management {% endblock %}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Travello template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'home/styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'home/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'home/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/styles/main_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/styles/responsive.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'home/styles.css' %}">
+</head>
+<body>
+
+<div class="super_container">
+
+	<!-- Header -->
+
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="header_content d-flex flex-row align-items-center justify-content-start">
+						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
+							<div class="logo"><a href="{% url 'home:index' %}#index-menu">e-office</a></div>
+							<nav class="main_nav">
+								<ul class="d-flex flex-row align-items-start justify-content-start">
+									<li class="active"><a href="{% url 'home:index' %}#index-menu">Home</a></li>
+									{% if user.is_authenticated %}
+									<li><a href="{% url 'home:logout' %}#index-menu">Logout</a></li>
+									{% else %}
+									<li><a href="{% url 'secretary:login' %}#login">Login</a></li>
+									{% endif %}
+									<li><a href="#">Services</a></li>
+									<li><a href="news.html">News</a></li>
+									<li><a href="contact.html">Contact</a></li>
+								</ul>
+							</nav>
+							<div class="header_phone ml-auto">Call us: 07035986205</div>
+
+							<!-- Hamburger -->
+
+							<div class="hamburger ml-auto">
+								<i class="fa fa-bars" aria-hidden="true"></i>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header_social d-flex flex-row align-items-center justify-content-start">
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</header>
+
+	<!-- Menu -->
+
+	<div class="menu">
+		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
+
+			<div class="menu_logo"><a href="{% url 'home:index' %}#index-menu">e-office</a></div>
+			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
+		</div>
+		<div class="menu_content">
+			<ul>
+				<li><a href="{% url 'home:index' %}#index-menu">Home</a></li>
+				{% if user.is_authenticated %}
+				<li><a href="{% url 'home:logout' %}#index-menu">Logout</a></li>
+				{% else %}
+				<li><a href="{% url 'secretary:login' %}#login">Login</a></li>
+				{% endif %}
+				<li><a href="#">Services</a></li>
+				<li><a href="#">News</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+		<div class="menu_social">
+			<div class="menu_phone ml-auto">Call us: 07035986205</div>
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Home -->
+
+	<div class="home">
+
+		<!-- Home Slider -->
+		<div class="home_slider_container">
+			<div class="owl-carousel owl-theme home_slider">
+
+				<!-- Slide -->
+				<div class="owl-item">
+					<div class="background_image" style="background-image:url({% static 'home/images/home_slider.jpg' %})"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content">
+										<div class="home_title"><h2>Welcome to e-office management</h2></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Slide -->
+				<div class="owl-item">
+					<div class="background_image" style="background-image:url({% static 'home/images/home_slider.jpg' %})"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content">
+										<div class="home_title"><h2>Welcome to e-office management</h2></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Slide -->
+				<div class="owl-item">
+					<div class="background_image" style="background-image:url({% static 'home/images/home_slider.jpg' %})"></div>
+					<div class="home_slider_content_container">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="home_slider_content">
+										<div class="home_title"><h2>Welcome to e-office management</h2></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Search -->
+
+	<div class="home_search">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="home_search_container">
+						<div class="home_search_title">Search for file</div>
+						<div class="home_search_content">
+							<form action="#" class="home_search_form" id="home_search_form">
+								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+									<input type="text" class="search_input search_input_1" placeholder="type" required="required">
+									<input type="text" class="search_input search_input_2" placeholder="file number" required="required">
+									<button class="home_search_button">search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% block body %}
+{% endblock %}<br><br>
+	<!-- Footer -->
+
+	<footer class="footer">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static 'home/images/footer_1.jpg' %}" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row footer_contact_row">
+				<div class="col-xl-10 offset-xl-1">
+					<div class="row">
+
+						<!-- Footer Contact Item -->
+						<div class="col-xl-4 footer_contact_col">
+							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
+								<div class="footer_contact_icon"><img src="{% static 'home/images/sign.svg' %}" alt=""></div>
+								<div class="footer_contact_title">give us a call</div>
+								<div class="footer_contact_list">
+									<ul>
+										<li>Office Landline: +2347035986205</li>
+										<li>Mobile: +2347035986205</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Contact Item -->
+						<div class="col-xl-4 footer_contact_col">
+							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
+								<div class="footer_contact_icon"><img src="{% static 'home/images/trekking.svg' %}" alt=""></div>
+								<div class="footer_contact_title">come & drop by</div>
+								<div class="footer_contact_list">
+									<ul style="max-width:190px">
+										<li>1, Agu shopping complex Jos Road Lafia</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Footer Contact Item -->
+						<div class="col-xl-4 footer_contact_col">
+							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
+								<div class="footer_contact_icon"><img src="{% static 'home/images/around.svg' %}" alt=""></div>
+								<div class="footer_contact_title">send us a message</div>
+								<div class="footer_contact_list">
+									<ul>
+										<li>eplusmedia@gmail.com</li>
+										<li>Office@eplusmedia.com</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col text-center">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">eplus media</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </div>
+	</footer>
+</div>
+
+<script src="{% static 'home/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'home/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'home/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'home/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'home/plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'home/plugins/scrollTo/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'home/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'home/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'home/js/custom.js' %}"></script>
+</body>
+</html>

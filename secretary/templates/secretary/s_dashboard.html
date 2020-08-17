@@ -1,0 +1,76 @@
+{% extends 'home/base.html' %}
+
+ <!-- {% block login %}
+          <div align="right" style="display: inline-block;">
+                <a href="{% url 'secretary:login' %}" class="login"><button class="button"> <span class="strong">Login</span></button> </a>
+            </div>
+{% endblock %} -->
+    {% block body %}
+ <br/>
+        {% if user.is_authenticated %}
+<div id="dashboard" style="padding:2%; margin:5%;">
+            <div align="center">
+            <h3>
+            Welcome {{ user.first_name }} {{ user.last_name }}
+            </h3>
+            </div>
+<!-- secretary's Dashboard -->
+
+                {% if user.profile.secretary %}
+                    <div class="list">
+
+                    <a href="{% url 'secretary:upload' %}" class="alist">
+                        <div class="slist">
+                        <span>Register File</span>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'secretary:history' %}#file-history" class="alist">
+                        <div class="slist">
+                        <span>History</span>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'home:logout' %}#index-menu" class="alist">
+                        <div class="slist">
+                        <span>Logout</span>
+                        </div>
+                    </a>
+                </div>
+
+                {% else %}
+<!-- others Dashboard -->
+                <div class="list">
+
+                    <a href="{% url 'secretary:history' %}#file-history" class="alist">
+                        <div class="slist">
+                        <span>Unmoved File <button style="background:red; color:white; border:0px; border-radius: 10px;">
+                            {% if user.profile.ssg %} {{ssg_unmoved}} {% endif %}
+                            {% if user.profile.perm_sec_cas %} {{perm_sec_cas_unmoved}} {% endif %}
+                            {% if user.profile.perm_sec_political %} {{perm_sec_political_unmoved}} {% endif %}
+                            {% if user.profile.perm_sec_general_admin %} {{perm_sec_general_admin_unmoved}} {% endif %}
+                            {% if user.profile.director_internal_affairs %} {{director_internal_affairs_unmoved}} {% endif %}
+                            {% if user.profile.director_security %} {{director_security_unmoved}} {% endif %}
+                            {% if user.profile.director_cabinet_affairs %}{{director_cabinet_affairs_unmoved}}{% endif %}
+                        </button></span>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'secretary:history' %}#file-history" class="alist">
+                        <div class="slist">
+                        <span>History</span>
+                        </div>
+                    </a>
+
+                    <a href="{% url 'home:logout' %}#index-menu" class="alist">
+                        <div class="slist">
+                        <span>Logout</span>
+                        </div>
+                    </a>
+
+</div>
+                {% endif %}
+</div>
+{% endif %}
+    {% endblock %}
+
